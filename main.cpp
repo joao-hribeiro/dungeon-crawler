@@ -101,9 +101,12 @@ int main() {
     Jogo j;
     char mapa[MAX][MAX];
     j.turnos = 0; j.tesouros = 0; j.monstrosVivos = 0;
+
     // Leitura do arquivo de configuração (nLinhas, nColunas, vida...)
     if(!loadConfig(j, mapa)) return 1;
+    
     // Loop principal de jogo - recarrega o mapa e recebe o comando
     game(j, mapa);
+
     return 0;
 }

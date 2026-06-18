@@ -49,15 +49,7 @@ int loadConfig(Jogo &j, char mapa[MAX][MAX]){
     return 1;
 }
 
-int main() {
-    Jogo j;
-    char mapa[MAX][MAX];
-    j.turnos = 0; j.tesouros = 0; j.monstrosVivos = 0;
-
-    // Leitura do arquivo de configuração (nLinhas, nColunas, vida...)
-    if(!loadConfig(j, mapa)) return 1;
-    
-    // Loop principal de jogo - recarrega o mapa e recebe o comando
+void game(Jogo &j, char mapa[MAX][MAX]){
     char comando;
     while (j.vidaAtual > 0 && j.turnos < j.maxTurnos) {
         exibirStatus(mapa, j);
@@ -85,7 +77,7 @@ int main() {
                 cout << "Existem monstros!" << endl;
             } else {
                 cout << "Vitoria! Pontuacao: " << (j.tesouros * j.pontosTesouro) + (j.vidaAtual * 10) - j.turnos << endl;
-                return 0; // jogo finaliza como indicado 
+                return; // jogo finaliza como indicado 
             }
         } else {
             if (destino == 'T') j.tesouros++; // verifica se eh um tesouro
@@ -103,5 +95,18 @@ int main() {
     }
     // jogo finalizado -> so finaliza com a pontuacao zerada. Entao: pontuacao = 0
     cout << "Fim de jogo. Pontuacao: 0" << endl;
+}
+
+int main() {
+    Jogo j;
+    char mapa[MAX][MAX];
+    j.turnos = 0; j.tesouros = 0; j.monstrosVivos = 0;
+
+    // Leitura do arquivo de configuração (nLinhas, nColunas, vida...)
+    if(!loadConfig(j, mapa)) return 1;
+    
+    // Loop principal de jogo - recarrega o mapa e recebe o comando
+    game(j, mapa);
+
     return 0;
 }

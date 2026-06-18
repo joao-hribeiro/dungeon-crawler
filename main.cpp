@@ -23,15 +23,11 @@ void exibirStatus(char mapa[MAX][MAX], Jogo j) {
     }
 }
 
-int main() {
-    Jogo j;
-    char mapa[MAX][MAX];
-    j.turnos = 0; j.tesouros = 0; j.monstrosVivos = 0;
-    // Leitura do arquivo de configuração (nLinhas, nColunas, vida...)
+int loadConfig(Jogo &j, char mapa[MAX][MAX]){
     ifstream arqConfig("config.txt");
     if (!arqConfig){
         cout << "Erro ao abrir config.txt" << endl;
-        return 1; // encerra o programa
+        return 0; // encerra o programa
     }
     arqConfig >> j.linhas >> j.colunas >> j.vida >> j.dano >> j.pocao >> j.pontosTesouro >> j.maxTurnos;
     j.vidaAtual = j.vida; // Recebendo os parametros
@@ -39,7 +35,7 @@ int main() {
     ifstream arqMapa("mapa.txt");
     if (!arqMapa){
         cout << "Erro ao abrir mapa.txt" << endl;
-        return 1; // encerra o programa
+        return 0; // encerra o programa
     }
     for (int i = 0; i < j.linhas; i++) {
         for (int k = 0; k < j.colunas; k++) {
@@ -50,6 +46,17 @@ int main() {
             } else if (mapa[i][k] == 'M') j.monstrosVivos++; // armazena o numero de monstros vivos para controle
         }
     }
+    return 1;
+}
+
+int main() {
+    Jogo j;
+    char mapa[MAX][MAX];
+    j.turnos = 0; j.tesouros = 0; j.monstrosVivos = 0;
+
+    // Leitura do arquivo de configuração (nLinhas, nColunas, vida...)
+    if(!loadConfig(j, mapa)) return 1;
+    
     // Loop principal de jogo - recarrega o mapa e recebe o comando
     char comando;
     while (j.vidaAtual > 0 && j.turnos < j.maxTurnos) {

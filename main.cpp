@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include "lib/input.cpp"
+
 #define MAX 100
 
 using namespace std;
@@ -53,8 +55,8 @@ void game(Jogo &j, char mapa[MAX][MAX]){
     char comando;
     while (j.vidaAtual > 0 && j.turnos < j.maxTurnos) {
         exibirStatus(mapa, j);
-        cout << "Digite seu comando: ";
-        cin >> comando;
+        char comando = _getch();
+        
         if (comando == 'q') break; // comando para sair do jogo
         int nextX = j.pX, nextY = j.pY; // inicializa a direcao do deslocamento
         if (comando == 'w') nextX--; // [61-64] -> acrescenta aos deslocamentos pelo eixo a direcao do movimento
@@ -65,6 +67,7 @@ void game(Jogo &j, char mapa[MAX][MAX]){
             cout << "Comando invalido!" << endl;
             continue;
         }
+        
         // Validação de limites e paredes (verifica se o jogador pode realizar o movimento ou nao)
         if (nextX < 0 || nextX >= j.linhas || nextY < 0 || nextY >= j.colunas || mapa[nextX][nextY] == '#') {
             cout << "Movimento invalido!" << endl;

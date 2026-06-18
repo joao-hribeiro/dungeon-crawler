@@ -12,9 +12,9 @@ O motor do jogo funciona baseado em turnos e processa arquivos de configuração
 
 ## 🛠️ Funcionalidades e Mecânicas
 
-* Movimentação Baseada em Turnos**: Controle intuitivo utilizando as teclas clássicas `W`, `A`, `S`, `D`.
-* Geração Dinâmica via Arquivos**: O mapa e as variáveis de jogo (vida inicial, dano, turnos máximos) são carregados de forma dinâmica através de arquivos de texto (`config.txt` e `mapa.txt`).
-* Sistema de Validação Estrita**: O programa valida as dimensões da matriz e a presença de elementos obrigatórios (como herói, tesouro e saída única) antes de iniciar.
+* **Movimentação Baseada em Turnos**: Controle intuitivo utilizando as teclas clássicas `W`, `A`, `S`, `D`.
+* **Geração Dinâmica via Arquivos**: O mapa e as variáveis de jogo (vida inicial, dano, turnos máximos) são carregados de forma dinâmica através de arquivos de texto (`config.txt` e `mapa.txt`).
+* **Sistema de Validação Estrita**: O programa valida as dimensões da matriz e a presença de elementos obrigatórios (como herói, tesouro e saída única) antes de iniciar.
 * **Elementos Interativos**:
   * 💰 **Tesouros (`T`)**: Incrementam a pontuação.
   * 🧪 **Poções (`P`)**: Recuperam a saúde do jogador.

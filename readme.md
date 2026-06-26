@@ -48,7 +48,7 @@ Certifique-se de ter um compilador que suporte C++11 ou superior (como o `g++`).
 
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/joao-hribeiro/dungeon-crawler.git](https://github.com/joao-hribeiro/dungeon-crawler.git)
+   git clone https://github.com/joao-hribeiro/dungeon-crawler.git
    cd dungeon-crawler
 
 ---
@@ -61,4 +61,4 @@ Desenvolvido por:
 | :--- | :---: |
 | **João Humberto de Aquino Ribeiro** | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/joao-hribeiro) |
 | **Humberto de Moraes Lanzieri Filho** | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hlanzieri) |
-| **Enzo Delgado Duque** | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/usuario-3) |
+| **Enzo Delgado Duque** | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/enzodelduq-lgtm) |

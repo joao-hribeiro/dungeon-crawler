@@ -16,6 +16,7 @@ struct Jogo {
 
 // Funcao para exibição dos status do jogo apos um movimento
 void exibirStatus(char mapa[MAX][MAX], Jogo j) {
+    cout << "\033[2J\033[H"; // limpa o terminal e joga o cursor pro topo
     cout << "=== DIA " << j.diaAtual << " ===" << endl; // mostra o dia em que o jogador esta dentro da caverna
     cout << "Vida: " << j.vidaAtual << endl;
     cout << "Pontuacao: " << (j.tesouros * j.pontosTesouro) << endl;
@@ -86,22 +87,27 @@ bool game(Jogo &j, char mapa[MAX][MAX]){
         else if (comando == 'a') nextY--;
         else if (comando == 'd') nextY++;
         else { 
-            cout << "Comando invalido!" << endl;
+            cout << "Comando invalido! Tente clicar somente as teclas w,s,a,d ou q para desistir!" << endl;
+             _getch();// o jogo congela pois se não a mensagem é apagada instantaneamente
             continue;
         }
         
         if (nextX < 0 || nextX >= j.linhas || nextY < 0 || nextY >= j.colunas || mapa[nextX][nextY] == '#') {
             cout << "Movimento invalido!" << endl;
+            _getch();// o jogo congela pois se não a mensagem é apagada instantaneamente
             continue;
         }
         
         char destino = mapa[nextX][nextY];
         if (destino == 'S') { 
             if (j.monstrosVivos > 0) { 
-                cout << "Existem monstros!" << endl;
+                cout << "Existem monstros! Derrote-os primeiro. Aperte qualquer tecla para continuar!" << endl;
+                 _getch();// o jogo congela pois se não a mensagem é apagada instantaneamente
             } else {
                 // Ao invés de acabar o jogo, ele avisa que o dia acabou e retorna true, pra ir para outro mapa e começar de novo
                 cout << "Voce encontrou a saida! Preparando para o proximo dia..." << endl;
+                cout << " (Aperte qualquer tecla para continuar)";
+                _getch();// o jogo congela pois se não a mensagem é apagada instantaneamente
                 return true; 
             }
         } else {

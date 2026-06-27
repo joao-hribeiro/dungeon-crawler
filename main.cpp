@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-#include <ctime>
 #include "lib/input.cpp"
-
 
 #define MAX 100
 
@@ -54,6 +52,63 @@ int carregarMapaAleatorio(Jogo &j, char mapa[MAX][MAX]) {
             } else if (mapa[i][k] == 'M') {
                 j.monstrosVivos++;
             }
+        }
+    }
+
+    // Sistema de reconpensa progressiva
+    // Percorre a matriz adicionando itens extras baseados no dia atual 
+
+    int chanceItemExtra = j.diaAtual * 2; // +2% de chance por dia
+    int contador_porcaoExtra = 0, contador_tesouroExtra = 0; // serve para limitar o tanto de porcao e tesouro extra
+
+    for (int i = 0; i < j.linhas; i++) {
+
+        for (int k = 0; k < j.colunas; k++) {
+            // Se for chão vazio, i e j pares, tem uma chance de acontecer essas coisas
+            if (mapa[i][k] == '.'&& (i%2==0&&k%2==0)) { 
+                // Gera um numero entre 0 e 199, serve para gerar uma chane de o jogador ganhar uma porcao ou tesouro no espaco vazio
+                int chance = rand() % 200;
+                if (chance < chanceItemExtra) {
+                    // Decide aleatoriamente se será Poção ou Tesouro
+                    if (rand() % 2 == 0 && contador_porcaoExtra<3) {
+                        mapa[i][k] = 'P';
+                        contador_porcaoExtra++;
+
+                    } else if(contador_tesouroExtra < 3) {
+                        mapa[i][k] = 'T';
+                        contador_tesouroExtra++;
+                    }
+                }
+            }
+        }
+    }
+
+    // Sistema de colocar monstors aleatorios com um limite de 8 monstros
+    // Adiciona 1 monstro extra a cada 5 dias completos
+    int monstrosExtras = j.diaAtual / 5; 
+    
+    // Teto de monstros extras: garante que nunca passe de 10
+    if (monstrosExtras > 10) {
+        monstrosExtras = 10;
+    }
+    
+    for (int m = 0; m < monstrosExtras; m++) {
+        bool posicaoEncontrada = false; // se der uma posicao que tenha como colocar o monstro ela vira true
+        int tentativas = 0;
+        
+        // Usei um limite de tentativas para nao ter um loop infinito 
+        while (!posicaoEncontrada && tentativas < 50) {// coloquei 50 tentativas para nao colocar muitos monstros muito rapido;
+            // Sorteia uma linha e uma coluna aleatória na matriz
+            int linhaAleatoria = rand() % j.linhas;
+            int colunaAleatoria = rand() % j.colunas;
+            
+            // Se as coordenadas sorteadas caírem em um espaço vazio, coloca o monstro no mapa[linAle][colunaAle]
+            if (mapa[linhaAleatoria][colunaAleatoria] == '.') {
+                mapa[linhaAleatoria][colunaAleatoria] = 'M';
+                j.monstrosVivos++; 
+                posicaoEncontrada = true; // acaba o while
+            }
+            tentativas++;
         }
     }
     return 1;
@@ -154,11 +209,3 @@ int main() {
 
     return 0;
 }
-/*resumo do que eu fiz
----- jogo nao acaba quando chega na saida mais sim quando o jogador morre ou desiste
----- adicionei numero de dias e mapas novos
----- adicionei aleatoriedade na escolha dos mapas
----- retirei a cricao dos mapas do loadconfig
----- criei novas funções 
-*/
-
